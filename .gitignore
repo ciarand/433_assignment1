@@ -54,3 +54,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# virtualenv
+/bin
+/include
