@@ -28,7 +28,7 @@ import struct
 import os
 
 class cipher(CipherInterface):
-    def vigenre(key, mode, input, output):
+    def Vigenre(key,mode,input,output):
         '''
         from wiki
         C_i = E_K(M_i) = (M_i+K_i) \mod {26}
