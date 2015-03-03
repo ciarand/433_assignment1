@@ -24,3 +24,6 @@ Instruction
 '''
 
 # this is where the main entry point will go
+
+if __name__ == "__main__":
+    print("This hasn't been implemented yet. Uh oh!")
