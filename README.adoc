@@ -1,0 +1,18 @@
+Cipher
+======
+Kourun Sok; Ciaran Downey; Stratton Aguilar
+
+Tests
+-----
+
+Getting your environment setup
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+. Get https://virtualenv.pypa.io/en/latest/installation.html[virtualenv] (make
+  sure you're getting it for `python3`, not `python2`)
+. `cd` into the project directory
+. Run `virtualenv .`
+. Run `bin/pip install -r requirements.txt`
+
+Running the tests
+~~~~~~~~~~~~~~~~~
+. Run `bin/py.test cipher_test.py`
