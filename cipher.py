@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # Assignment 1: CS 433
 # Due: 3/6/2015
@@ -22,13 +23,16 @@ Usage: python3 cipher.py <CIPHER> <KEY> <ENC/DEC> <INPUT FILE> <OUTPUT FILE>
   OUTPUT FILE: the file to which the output shall be written.
 '''
 
+from __future__ import print_function
+
 import sys
-from pathlib import Path
+import os.path
 
 from cipher_interface import CipherInterface
 from caesar_cipher import CaesarCipher
 from vigenre_cipher import VigenreCipher
 from playfair import Playfair
+from railfence_cipher import RailFenceCipher
 
 # this is where the main entry point will go
 
@@ -47,15 +51,11 @@ if __name__ == "__main__":
     out       = sys.argv[5]
 
     # read the input data or die
-    inpath = Path(inp)
-    if not inpath.exists():
+    if not os.path.isfile(inp):
         die("input file '%s' doesn't exist" % inp)
 
-    if inpath.is_dir():
-        die("input file '%s' is a directory" % inp)
-
     indata = ""
-    with inpath.open('r') as f:
+    with os.open(inp, 'r') as f:
         indata += f.read()
 
     # create a cipher or die
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     elif ciph_name == "RTS":
         cipher = CipherInterface()
     elif ciph_name == "RFC":
-        cipher = CipherInterface()
+        cipher = RailFenceCipher()
     elif ciph_name == "VIG":
         cipher = VigenreCipher()
     elif ciph_name == "CES":
@@ -88,47 +88,3 @@ if __name__ == "__main__":
     # write the data out (and make sure to close the file)
     with open(out, 'w') as f:
         f.write(outdata)
-'''
-def main():
-
-	error = 0
-
-	if(len(sys.argv) != 6):
-		error = 1
-		print "Cipher needs 5 arguments <CIPHER NAME> <KEY> <ENC/DEC> <INPUT FILE> <OUTPUT FILE>"
-	else:
-		ciphername = sys.argv[1].lower().strip()
-		key = sys.argv[2].lower().strip()
-		crypt = sys.argv[3].lower().strip()
-		inputText = sys.argv[4].strip()
-		outputText = sys.argv[5].strip()
-
-		
-
-		if(not(ciphername == "plf" or ciphername == "rts" or ciphername == "rfc" or ciphername == "vig" or ciphername == "ces")):
-			error = 2
-			print "Text entered: {}".format(ciphername)
-			print "Ciphers availible:"
-			print "PLF: Playfair"
-			print "RTS: Row Transposition"
-			print "RFC: Rail Fence"
-			print "VIG: Vigenre"
-			print "CES: Caesar"
-
-		elif(not(crypt == "enc" or crypt == "dec")):
-			error = 3
-			print "Text entered: {}".format(crypt) 
-			print "Must select encryt or decrypt:"
-			print "ENC: Encrypt"
-			print "DEC: Decrypt"
-
-
-		if(error == 0):
-			bob = Playfair()
-			bob.setKey(key)
-			bob.encrypt(inputText)
-			bob.decrypt(outputText)
-
-if __name__ == '__main__':
-	main()
-'''

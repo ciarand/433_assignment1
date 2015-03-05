@@ -1,169 +1,169 @@
-from cipherinterface import CipherInterface
+from cipher_interface import CipherInterface
 import itertools
 
 class Playfair(CipherInterface):
-	def __init__(self):
-		self.key = ""
+    def __init__(self):
+        self.key = ""
 
-	def setKey(self, key):
+    def setKey(self, key):
 
-		rValue = False
-		if(key.isalpha):
-			key = key.replace("j","i")
+        rValue = False
+        if(key.isalpha):
+            key = key.replace("j","i")
 
-			for char in key:
-				if char not in self.key:
-					self.key += char
+            for char in key:
+                if char not in self.key:
+                    self.key += char
 
-			alphaString = ("abcdefghiklmnopqrstuvwxyz")
-			for char in alphaString:
-				if char not in self.key:
-					self.key += char
+            alphaString = ("abcdefghiklmnopqrstuvwxyz")
+            for char in alphaString:
+                if char not in self.key:
+                    self.key += char
 
-			rValue = True
-		return rValue
+            rValue = True
+        return rValue
 
-	def encrypt(self, plaintext):
+    def encrypt(self, plaintext):
 
-		prepText = ""
-		key = self.key
+        prepText = ""
+        key = self.key
 
-		#pad text to remove pairs of duplicate letters
-		previous = "0"
-		i = 0
-		j = 0
-		while i < len(plaintext):
-		
-			if plaintext[i] == previous and j % 2 == 1:
-				prepText += "x"
-				previous = "x"
-				j += 1
-				
-			else:
-				prepText += plaintext[i]
-				previous = plaintext[i]
+        #pad text to remove pairs of duplicate letters
+        previous = "0"
+        i = 0
+        j = 0
+        while i < len(plaintext):
 
-				i += 1
-				j += 1
+            if plaintext[i] == previous and j % 2 == 1:
+                prepText += "x"
+                previous = "x"
+                j += 1
 
-		if(len(prepText) % 2 == 1 ):
-			prepText += "x"
+            else:
+                prepText += plaintext[i]
+                previous = plaintext[i]
 
-		ciphertext = ""
+                i += 1
+                j += 1
 
-		#encrypt
-		for first, second in zip(prepText, prepText[1:])[::2]:
-			#For Testing
-			#print(first, second)
-			
-			value1 = key.index(first)
-			value2 = key.index(second)
+        if(len(prepText) % 2 == 1 ):
+            prepText += "x"
 
-			#same column
-			if(value1 % 5 == value2 % 5):
+        ciphertext = ""
 
-				ciphertext += key[(value1 + 5) % 25]
-				ciphertext += key[(value2 + 5) % 25]
-				ciphertext += " "
+        #encrypt
+        for first, second in zip(prepText, prepText[1:])[::2]:
+            #For Testing
+            #print(first, second)
 
-			#same row
-			elif(value1 / 5 == value2 / 5):
+            value1 = key.index(first)
+            value2 = key.index(second)
 
-				if(value1 % 5 == 4):
-					value1 -= 4
-				else:
-					value1 += 1
+            #same column
+            if(value1 % 5 == value2 % 5):
 
-				if(value2 % 5 == 4):
-					value2 -= 4
-				else:
-					value2 += 1
+                ciphertext += key[(value1 + 5) % 25]
+                ciphertext += key[(value2 + 5) % 25]
+                ciphertext += " "
 
-				ciphertext += key[value1]
-				ciphertext += key[value2]
-				ciphertext += " "
+            #same row
+            elif(value1 / 5 == value2 / 5):
 
-			#different column different row
-			else:
-				col1 = value1 % 5
-				col2 = value2 % 5
+                if(value1 % 5 == 4):
+                    value1 -= 4
+                else:
+                    value1 += 1
 
-				if(col1 < col2):
-					ciphertext += key[value1 + col2 - col1]
-					ciphertext += key[value2 - col2 + col1]
-					ciphertext += " "
-				else:
-					ciphertext += key[value1 - col1 + col2]
-					ciphertext += key[value2 + col1 - col2]
-					ciphertext += " "
+                if(value2 % 5 == 4):
+                    value2 -= 4
+                else:
+                    value2 += 1
 
-		ciphertext = ciphertext.upper()
+                ciphertext += key[value1]
+                ciphertext += key[value2]
+                ciphertext += " "
 
-		#For Testing
-		#print ciphertext
+            #different column different row
+            else:
+                col1 = value1 % 5
+                col2 = value2 % 5
 
-	def decrypt(self, ciphertext):
+                if(col1 < col2):
+                    ciphertext += key[value1 + col2 - col1]
+                    ciphertext += key[value2 - col2 + col1]
+                    ciphertext += " "
+                else:
+                    ciphertext += key[value1 - col1 + col2]
+                    ciphertext += key[value2 + col1 - col2]
+                    ciphertext += " "
 
-		ciphertext = ciphertext.strip()
-		key = self.key
+        ciphertext = ciphertext.upper()
 
-		#For Testing
-		#print key
+        #For Testing
+        #print ciphertext
 
-		plaintext = ""
+    def decrypt(self, ciphertext):
 
-		#decrypt
-		for first, second in zip(ciphertext, ciphertext[1:])[::2]:
+        ciphertext = ciphertext.strip()
+        key = self.key
 
-			#For Testing
-			#print(first, second)
-			
-			value1 = key.index(first)
-			value2 = key.index(second)
+        #For Testing
+        #print key
 
-			#same column
-			if(value1 % 5 == value2 % 5):
-				if value1 < 5:
-					value1 += 25
-				if value2 < 5:
-					value2 += 25
+        plaintext = ""
 
-				plaintext += key[value1 - 5]
-				plaintext += key[value2 - 5]
-				plaintext += " "
+        #decrypt
+        for first, second in zip(ciphertext, ciphertext[1:])[::2]:
 
-			#same row
-			elif(value1 / 5 == value2 / 5):
+            #For Testing
+            #print(first, second)
 
-				if(value1 % 5 == 0):
-					value1 += 4
-				else:
-					value1 -= 1
+            value1 = key.index(first)
+            value2 = key.index(second)
 
-				if(value2 % 5 == 0):
-					value2 += 4
-				else:
-					value2 -= 1
+            #same column
+            if(value1 % 5 == value2 % 5):
+                if value1 < 5:
+                    value1 += 25
+                if value2 < 5:
+                    value2 += 25
 
-				plaintext += key[value1]
-				plaintext += key[value2]
-				plaintext += " "
+                plaintext += key[value1 - 5]
+                plaintext += key[value2 - 5]
+                plaintext += " "
 
-			#different column different row
-			else:
-				col1 = value1 % 5
-				col2 = value2 % 5
+            #same row
+            elif(value1 / 5 == value2 / 5):
 
-				if(col1 < col2):
-					plaintext += key[value1 + col2 - col1]
-					plaintext += key[value2 - col2 + col1]
-					plaintext += " "
-				else:
-					plaintext += key[value1 - col1 + col2]
-					plaintext += key[value2 + col1 - col2]
-					plaintext += " "
+                if(value1 % 5 == 0):
+                    value1 += 4
+                else:
+                    value1 -= 1
 
-		plaintext = plaintext.upper()
+                if(value2 % 5 == 0):
+                    value2 += 4
+                else:
+                    value2 -= 1
 
-		#For Testing
-		#print plaintext
+                plaintext += key[value1]
+                plaintext += key[value2]
+                plaintext += " "
+
+            #different column different row
+            else:
+                col1 = value1 % 5
+                col2 = value2 % 5
+
+                if(col1 < col2):
+                    plaintext += key[value1 + col2 - col1]
+                    plaintext += key[value2 - col2 + col1]
+                    plaintext += " "
+                else:
+                    plaintext += key[value1 - col1 + col2]
+                    plaintext += key[value2 + col1 - col2]
+                    plaintext += " "
+
+        plaintext = plaintext.upper()
+
+        #For Testing
+        #print plaintext

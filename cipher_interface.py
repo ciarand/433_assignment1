@@ -9,10 +9,10 @@ class CipherInterface:
         self.key = key
         rValue = False
 
-		if(key.isalpha):
-			rValue = True
+        if (key.isalpha):
+            rValue = True
 
-		return rValue
+        return rValue
 
     def encrypt(self, plaintext):
         raise NotImplementedError
