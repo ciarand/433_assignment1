@@ -28,6 +28,7 @@ from pathlib import Path
 from cipher_interface import CipherInterface
 from caesar_cipher import CaesarCipher
 from vigenre_cipher import VigenreCipher
+from railfence_cipher import RailFenceCipher
 
 # this is where the main entry point will go
 
@@ -63,7 +64,7 @@ if __name__ == "__main__":
     elif ciph_name == "RTS":
         cipher = CipherInterface()
     elif ciph_name == "RFC":
-        cipher = CipherInterface()
+        cipher = RailFenceCipher()
     elif ciph_name == "VIG":
         cipher = VigenreCipher()
     elif ciph_name == "CES":
