@@ -59,3 +59,4 @@ target/
 # virtualenv
 /bin
 /include
+pip-selfcheck.json
