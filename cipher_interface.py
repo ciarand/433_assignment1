@@ -7,6 +7,12 @@ class CipherInterface:
 
     def set_key(self, key):
         self.key = key
+        rValue = False
+
+		if(key.isalpha):
+			rValue = True
+
+		return rValue
 
     def encrypt(self, plaintext):
         raise NotImplementedError
