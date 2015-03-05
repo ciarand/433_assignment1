@@ -10,7 +10,12 @@ class RailFenceCipher(CipherInterface):
     """
 
     def set_key(self, key):
-        self.key = int(key)
+        ival = int(key)
+
+        if ival == 0:
+            raise ZeroDivisionError
+
+        self.key = ival
 
     def encrypt(self, plaintext):
         # first create a list of rails
