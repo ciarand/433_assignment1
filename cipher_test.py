@@ -2,6 +2,7 @@ import pytest, string, random
 
 from caesar_cipher import CaesarCipher
 from vigenre_cipher import VigenreCipher
+from railfence_cipher import RailFenceCipher
 
 def generate_random(n):
     """
@@ -31,3 +32,12 @@ def test_caesar_cipher():
 
 def test_vigenre_cipher():
     run_cipher_tests(VigenreCipher(), lambda i: "mylongtextkey")
+
+def test_railfence_cipher():
+    run_cipher_tests(RailFenceCipher(), lambda i: (i % 6) + 1)
+
+    c = RailFenceCipher()
+    c.set_key(3)
+
+    assert "cpeeryourcimtsut" == c.encrypt("computersecurity")
+    assert "computersecurity" == c.decrypt("cpeeryourcimtsut")
