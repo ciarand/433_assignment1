@@ -8,6 +8,9 @@ class CaesarCipher(CipherInterface):
     letters.
     """
 
+    def set_key(self, key):
+        self.key = int(key)
+
     def encrypt(self, plaintext):
         ciphertext = ""
 

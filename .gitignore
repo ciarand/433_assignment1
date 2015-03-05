@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*.pyc
 
 # C extensions
 *.so
@@ -58,3 +59,4 @@ target/
 # virtualenv
 /bin
 /include
+pip-selfcheck.json
