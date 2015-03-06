@@ -1,4 +1,4 @@
-from cipherinterface import CipherInterface
+from cipher_interface import CipherInterface
 import itertools
 
 class Playfair(CipherInterface):
@@ -101,6 +101,7 @@ class Playfair(CipherInterface):
 
 		#For Testing
 		#print ciphertext
+		return ciphertext
 
 	def decrypt(self, ciphertext):
 
@@ -165,5 +166,6 @@ class Playfair(CipherInterface):
 
 		plaintext = plaintext.upper()
 
+		return plaintext
 		#For Testing
 		#print plaintext
