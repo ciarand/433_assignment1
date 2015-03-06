@@ -31,7 +31,7 @@ def test_caesar_cipher():
     run_cipher_tests(CaesarCipher(), lambda i: i % 25)
 
 def test_vigenre_cipher():
-    run_cipher_tests(VigenreCipher(), lambda i: "mylongtextkey")
+    run_cipher_tests(VigenreCipher(), lambda _: "mylongtextkey")
 
 def test_railfence_cipher():
     run_cipher_tests(RailFenceCipher(), lambda i: (i % 6) + 1)
