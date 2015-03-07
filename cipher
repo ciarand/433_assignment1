@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Assignment 1: CS 433
@@ -51,12 +51,12 @@ if __name__ == "__main__":
         die("input file '%s' doesn't exist" % inp)
 
     indata = ""
-    with os.open(inp, 'r') as f:
+    with open(inp, "r") as f:
         indata += f.read()
 
     # create a cipher or die
     if ciph_name == "PLF":
-        cipher = CipherInterface()
+        cipher = PlayfairCipher()
     elif ciph_name == "RTS":
         cipher = CipherInterface()
     elif ciph_name == "RFC":
