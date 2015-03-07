@@ -22,7 +22,12 @@ class CipherInterface:
 
     # A is 65, Z is 90 in ASCII codes. We were promised no punctuation.
     def letter_to_pos(self, letter):
-        return ord(letter) - 65
+        val = ord(letter)
+
+        if val <= 90:
+            return val - 65
+        else:
+            return val - 97
 
     def pos_to_letter(self, pos):
         return chr((pos % 26) + 65)

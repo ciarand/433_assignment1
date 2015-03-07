@@ -1,4 +1,4 @@
-from cipher_interface import CipherInterface
+from .interface import CipherInterface
 
 class VigenreCipher(CipherInterface):
     """

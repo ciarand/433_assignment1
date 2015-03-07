@@ -1,4 +1,7 @@
-test:
-	./bin/py.test cipher_test.py
+tests:
+	./bin/py.test
 
-.PHONY: test
+clean:
+	rm -rf *.pyc pip-selfcheck.json __pycache__
+
+.PHONY: tests clean

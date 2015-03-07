@@ -28,11 +28,7 @@ from __future__ import print_function
 import sys
 import os.path
 
-from cipher_interface import CipherInterface
-from caesar_cipher import CaesarCipher
-from vigenre_cipher import VigenreCipher
-from playfair import Playfair
-from railfence_cipher import RailFenceCipher
+from ciphers import *
 
 # this is where the main entry point will go
 

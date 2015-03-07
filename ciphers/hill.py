@@ -1,9 +1,8 @@
-#just writing the logic out ,need to test
+# just writing the logic out, need to test
 
 import numpy as np
 from numpy import matrix
 from numpy import linalg
-
 
 def hillCipher(key,mode,input,output):
     alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -21,7 +20,7 @@ def hillCipher(key,mode,input,output):
     if mode =='ENC':
         #start encryting
         while len(input) % 3 != 0:
-            #add random string to the plain text until the %3 !=3 
+            #add random string to the plain text until the %3 !=3
             gennum = random.randint(0, 25)
             input = input +  alphabet.find(gennum)
         for i in plaintext[0::3]:
@@ -46,5 +45,5 @@ def hillCipher(key,mode,input,output):
     g = open(output,'w')
     g.write(save_output)
     g.close
-        
-            
+
+

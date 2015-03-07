@@ -1,6 +1,6 @@
 import math
 
-from cipher_interface import CipherInterface
+from .interface import CipherInterface
 
 class RailFenceCipher(CipherInterface):
     """
