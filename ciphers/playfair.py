@@ -185,8 +185,6 @@ class PlayfairCipher(CipherInterface):
 
         txt = self.digraphs_to_string(ciphertext)
 
-        print("plaintext=%s, ciphertext=%s, key=%r" % (plaintext, txt, self.key))
-
         return txt
 
     def decrypt(self, ciphertext):
@@ -197,7 +195,5 @@ class PlayfairCipher(CipherInterface):
         for dg in digraphs: plaintext.append(self.decrypt_digraph(dg))
 
         txt = self.digraphs_to_string(plaintext)
-
-        print("plaintext=%s, ciphertext=%s, key=%r" % (txt, ciphertext, self.key))
 
         return txt
