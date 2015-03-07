@@ -3,10 +3,14 @@ import pytest, string, random
 from ciphers import *
 
 def generate_random(n):
-    """
-    Generates a random string, n characters long.
-    """
+    """ Generates a random string, n characters long. """
+
     return ''.join(random.SystemRandom().choice(string.ascii_uppercase) for _ in range(n))
+
+def generate_random_numeric(n):
+    """ Generates a random numeric string, n characters long. """
+
+    return ''.join(random.SystemRandom().sample(set("123456789"), 9))
 
 def run_cipher_tests(cipher, keyfunc):
     """
@@ -20,9 +24,10 @@ def run_cipher_tests(cipher, keyfunc):
 
         # generate a random plaintext
         plaintext = generate_random(i * (i % 3))
+        length = len(plaintext)
 
         # test that the cipher encrypts and decrypts the plaintext successfully
-        assert plaintext == cipher.decrypt(cipher.encrypt(plaintext)), \
+        assert plaintext == cipher.decrypt(cipher.encrypt(plaintext))[:length], \
                 "expected %s to correctly decode plaintext %s" % (cipher, plaintext)
 
 def test_caesar_cipher():
@@ -30,6 +35,18 @@ def test_caesar_cipher():
 
 def test_vigenre_cipher():
     run_cipher_tests(VigenreCipher(), lambda _: "mylongtextkey")
+
+def test_transposition_cipher():
+    run_cipher_tests(TranspositionCipher(), lambda i: generate_random_numeric(9 if i < 9 else i))
+    cipher = TranspositionCipher()
+
+    cipher.set_key("3421567")
+
+    plaintext = "attackpostponeduntiltwoam"
+    ciphertext = cipher.encrypt(plaintext)
+    result = cipher.decrypt(ciphertext)
+
+    assert plaintext == result[:len(plaintext)]
 
 def test_playfair_cipher_set_key():
     c = PlayfairCipher()
