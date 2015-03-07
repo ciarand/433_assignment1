@@ -2,6 +2,13 @@ Cipher
 ======
 Kourun Sok; Ciaran Downey; Stratton Aguilar
 
+Notes
+-----
+Because the Playfair cipher (`ciphers/playfair.py`) doesn't handle repeated
+letters or 'X's very well (i.e. it's a "lossy" cipher), our unit tests are set
+to report false if there's a discrepency between the original plaintext and the
+generated plaintext of more than 10% (measured per-character).
+
 Tests
 -----
 
